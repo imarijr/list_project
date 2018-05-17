@@ -3,6 +3,7 @@ const app = {
         this.hw = []
         this.max = 0
         this.list = document.querySelector(selectors.formSelector)
+        this.template = document.querySelector(selectors.templateSelector)
 
         document
         .querySelector(selectors.formSelector)
@@ -13,8 +14,10 @@ const app = {
     },
 
     renderListItem(hw){
-        const item = document.createElement('li')
-        item.textContent= hw.name
+        const item = this.template.cloneNode(true)
+        item.classList.remove('template')
+        item.dataset.id = hw.id
+        item.querySelector('.hwName').textContent = hw.name
         return item
     },
 
@@ -26,15 +29,18 @@ const app = {
             name: f.hwName.value,
         }
 
-        this.hw.push(hw)
+        this.hw.unshift(hw)
+
+        
 
         const item = this.renderListItem(hw)
-        this.list.appendChild(item)
+        this.list.insertBefore(item, this.list.firstChild)
         f.reset()
     },
 }
 
 app.init({
     formSelector: '#hwForm',
-    listSelector: '#hwList'
+    listSelector: '#hwList',
+    templateSelector:'.hw.template',
 })
