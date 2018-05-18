@@ -2,7 +2,7 @@ const app = {
     init(selectors){
         this.hw = []
         this.max = 0
-        this.list = document.querySelector(selectors.formSelector)
+        this.list = document.querySelector(selectors.listSelector)
         this.template = document.querySelector(selectors.templateSelector)
 
         document
@@ -21,6 +21,8 @@ const app = {
         return item
     },
 
+    
+
     handleSubmit(ev){
         
         const f = ev.target
@@ -35,6 +37,13 @@ const app = {
 
         const item = this.renderListItem(hw)
         this.list.insertBefore(item, this.list.firstChild)
+
+        document
+        .querySelector('span#delete')
+        .addEventListener('click',(hw)=> {            
+            this.list.removeChild(item)
+        },)
+
         f.reset()
     },
 }
